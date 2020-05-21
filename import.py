@@ -4,7 +4,10 @@ import csv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-engine = create_engine("postgres://flbosuqxdbsiea:e958dac216eb63d909c6ed812e6cf69a2daa4973fa2c9d928a52394836c7d49b@ec2-54-165-36-134.compute-1.amazonaws.com:5432/dnijh9cfpfcq2")
+from dotenv import load_dotenv
+load_dotenv()
+
+engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
 '''
