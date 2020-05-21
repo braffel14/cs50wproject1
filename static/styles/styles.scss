@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=B612&display=swap');
+@import url("https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css");
+
+//color pallete
+//https://colorsinspo.com
+
+$color5: #be6a15;
+$color4: #e2f3f5;
+$color3: #15b2ce;
+$color2: #3d5af1;
+$color6: #40514e;
+$color1: #0e153a;
+
+
+
+%body-text{
+    font-family: 'B612', sans-serif;
+    color: $color1;
+}
+
+
+body{
+    @extend %body-text;
+    background-color: $color4;
+}
+
+.bg-primary{
+    background-color: $color2 !important;
+    color: white;
+}

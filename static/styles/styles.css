@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=B612&display=swap");
+@import url("https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css");
+body {
+  font-family: "B612", sans-serif;
+  color: #0e153a;
+}
+
+body {
+  background-color: #e2f3f5;
+}
+
+.bg-primary {
+  background-color: #3d5af1 !important;
+  color: white;
+}
+
+/*# sourceMappingURL=styles.css.map */
