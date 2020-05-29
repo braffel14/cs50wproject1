@@ -4,7 +4,7 @@
 //color pallete
 //https://colorsinspo.com
 
-$color5: #be6a15;
+$color5: #db7917;
 $color4: #e2f3f5;
 $color3: #15b2ce;
 $color2: #3d5af1;
@@ -13,18 +13,56 @@ $color1: #0e153a;
 
 
 
-%body-text{
+body{
     font-family: 'B612', sans-serif;
     color: $color1;
-}
-
-
-body{
-    @extend %body-text;
     background-color: $color4;
 }
 
 .bg-primary{
     background-color: $color2 !important;
     color: white;
+}
+
+.button{
+    background-color: $color5 !important;
+    border-radius: 4px;
+    border: none;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.toregisterbutton, .tologinbutton{
+    color: black;
+}
+
+.toregisterbutton:hover, .tologinbutton:hover{
+    border: 2px solid $color6 !important;
+    color: black;
+    text-underline-position: none;
+    text-decoration: none;
+}
+
+.newtosite{
+    .my-4{
+        background-color: $color5;
+        border: 1px solid $color5;
+    }
+}
+
+#incorrectlogin{
+    background-color:#d8473d;
+    color: white;
+}
+
+#userexistsalert{
+    background-color:#3aaa52;
+    color: white;
+}
+
+
+
+#logincontainer{
+    padding-top: 30px;
 }

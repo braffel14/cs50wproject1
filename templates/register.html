@@ -8,24 +8,22 @@
         <a class="nav-link" href="{{ url_for('index') }}">Search</a>
     </li>
     <li class="nav-item active">       
-        <a class="nav-link" href="{{ url_for('login') }}">Login<span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{{ url_for('register') }}">Register<span class="sr-only">(current)</span></a>
     </li>
 {% endblock %}x
 {% block content %}
-    {% if failedlogin%}
-        <div class="alert alert-warning" id="incorrectlogin" role="alert">
-            Username or Password Incorrect. Try again.
-        </div>
-    {% endif %}
-    {% if userexists%}
-        <div class="alert alert-warning" id="userexistsalert" role="alert">
-            User with that username already exists. Login!
-        </div>
-    {% endif %}
     <div class="container" id="logincontainer">
         <div class="row justify-content-center">
             <div class="col-md align-self-center">
                 <form action="" method="POST">
+                    <div class="form-group">
+                        <label for="firstnamefield">First Name</label>
+                        <input type="text" class="form-control" id="firstnamefield" name="firstname" placeholder="Enter First Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastnamefield">First Name</label>
+                        <input type="text" class="form-control" id="lastnamefield" name="lastname" placeholder="Enter Last Name">
+                    </div>
                     <div class="form-group">
                         <label for="usernamefield">Username</label>
                         <input type="text" class="form-control" id="usernamefield" name="username" placeholder="Enter username">
@@ -34,13 +32,13 @@
                         <label for="exampleInputPassword1">Password</label>
                         <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                     </div>
-                    <button type="submit" class="button loginbutton">Login</button>
+                    <button type="submit" class="button registerbutton">Register</button>
                 </form>
             </div>
             <div class="col-sm offset-md-3 align-self-center">
                 <div class="newtosite">
-                    <h5>New to This site?</h3><br>
-                    <a class="button toregisterbutton" href="{{ url_for('register') }}" role="button">Register</a>
+                    <h5>Already have an Account?</h3><br>
+                    <a class="button tologinbutton" href="{{ url_for('login') }}" role="button">Login</a>
                 </div>
             </div>
         </div>

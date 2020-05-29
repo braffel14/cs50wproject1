@@ -3,15 +3,51 @@
 body {
   font-family: "B612", sans-serif;
   color: #0e153a;
-}
-
-body {
   background-color: #e2f3f5;
 }
 
 .bg-primary {
   background-color: #3d5af1 !important;
   color: white;
+}
+
+.button {
+  background-color: #db7917 !important;
+  border-radius: 4px;
+  border: none;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.toregisterbutton, .tologinbutton {
+  color: black;
+}
+
+.toregisterbutton:hover, .tologinbutton:hover {
+  border: 2px solid #40514e !important;
+  color: black;
+  text-underline-position: none;
+  text-decoration: none;
+}
+
+.newtosite .my-4 {
+  background-color: #db7917;
+  border: 1px solid #db7917;
+}
+
+#incorrectlogin {
+  background-color: #d8473d;
+  color: white;
+}
+
+#userexistsalert {
+  background-color: #3aaa52;
+  color: white;
+}
+
+#logincontainer {
+  padding-top: 30px;
 }
 
 /*# sourceMappingURL=styles.css.map */

@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, session, render_template, redirect, url_for
+from flask import Flask, session, render_template, redirect, url_for, request
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -24,8 +24,79 @@ db = scoped_session(sessionmaker(bind=engine))
 
 @app.route("/")
 def index():
+    #goes home and clears user session variables if logout button pushed
+    if(request.args.get("logout")):
+            session["failedlogin"] = False
+            session["loggedin"] = False
+            session["user"] = None
+    
     return render_template("index.html")
 
-@app.route("/login")
+@app.route("/user")
+def user():
+    return render_template("user.html")
+
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    return render_template("login.html")
+
+    #login mechanics triggered when form login button pushed
+    if(request.method =="POST"):
+        #get username and password from form
+        username = request.form.get("username")
+        password = request.form.get("password")
+        
+        # query database for username
+        user = db.execute("SELECT * FROM users WHERE username = :username", {"username": username}).first()
+        try:
+            #if password is incorrect
+            if(user.password == password):
+                session["loggedin"] = True
+                session["user"] = username
+                return redirect(url_for('index'))
+            #if login is successful
+            else:
+                session["loggedin"] = False
+                session["user"] = None
+                return render_template("login.html", failedlogin=True)
+        #if user does not exists
+        except AttributeError:
+            session["failedlogin"] = True
+            session["loggedin"] = False
+            session["user"] = None
+            return render_template("login.html", failedlogin=True)
+
+    #hadnles redirect from register page if user registering already exists
+    userexists=request.args.get("userexists")
+
+    return render_template("login.html", userexists=userexists)
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    
+    #register mechanids triggered on form register button
+    if(request.method == "POST"):
+        
+        #get form information
+        firstname = request.form.get("firstname")
+        lastname = request.form.get("lastname")
+        username = request.form.get("username")
+        password = request.form.get("password")
+
+        #checks for already existing user and redirects if needed
+        if(db.execute("SELECT * FROM users WHERE username = :username", {"username": username}).rowcount > 0):
+            return redirect(url_for('login', userexists=True))
+        
+        #adds new user to database
+        db.execute("INSERT INTO users (username, password, firstname, lastname) VALUES (:username, :password, :firstname, :lastname)",
+            {"username":username, "password":password, "firstname":firstname, "lastname":lastname})
+        db.commit()
+
+        #logs in new user
+        session["loggedin"] = True
+        session["user"] = username
+
+        #goes home
+        return redirect(url_for('index'))
+
+
+    return render_template("register.html")
