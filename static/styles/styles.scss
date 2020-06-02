@@ -33,11 +33,11 @@ body{
     text-decoration: none;
 }
 
-.toregisterbutton, .tologinbutton{
+.toregisterbutton, .tologinbutton, .jumbotronbutton{
     color: black;
 }
 
-.toregisterbutton:hover, .tologinbutton:hover{
+.toregisterbutton:hover, .tologinbutton:hover, .jumbotronbutton:hover{
     border: 2px solid $color6 !important;
     color: black;
     text-underline-position: none;
@@ -61,6 +61,10 @@ body{
     color: white;
 }
 
+#jumbotronhr{
+    border: 1px solid $color2;
+    background-color: $color2;
+}
 
 
 #logincontainer{

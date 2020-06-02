@@ -8,15 +8,25 @@
         <a class="nav-link" href="{{ url_for('index') }}">Search</span></a>
     </li>
     <li class="nav-item">       
-        {% if session["loggedin"]%}
+        {% if session["loggedin"] %}
             <a class="nav-link" href="{{ url_for('user') }}"> {{ session["user"] }}</a>
         {% else %}
             <a class="nav-link" href="{{ url_for('login') }}">Login</a>
         {% endif %}
     </li>
-{% endblock %}x
+{% endblock %}
 {% block content %}
 
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to Ben's Book Reviews</h1>
+    <p class="lead">First, login below. Once you are logged in you will be able to earch reviews by title, author, or the books ISBN.</p>
+    <hr id="jumbotronhr">
+    {% if session["loggedin"] %}
+        <a class="button jumbotronbutton" href="{{ url_for('search') }}" role="button">Search</a>
+    {% else %}
+    <a class="button jumbotronbutton" href="{{ url_for('login') }}" role="button">Log In</a>
+    {% endif %} 
+</div>
 
 
 {% endblock %}

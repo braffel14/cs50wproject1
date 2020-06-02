@@ -20,11 +20,11 @@ body {
   text-decoration: none;
 }
 
-.toregisterbutton, .tologinbutton {
+.toregisterbutton, .tologinbutton, .jumbotronbutton {
   color: black;
 }
 
-.toregisterbutton:hover, .tologinbutton:hover {
+.toregisterbutton:hover, .tologinbutton:hover, .jumbotronbutton:hover {
   border: 2px solid #40514e !important;
   color: black;
   text-underline-position: none;
@@ -44,6 +44,11 @@ body {
 #userexistsalert {
   background-color: #3aaa52;
   color: white;
+}
+
+#jumbotronhr {
+  border: 1px solid #3d5af1;
+  background-color: #3d5af1;
 }
 
 #logincontainer {
