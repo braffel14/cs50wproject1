@@ -20,7 +20,19 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav">
-                {%block navbaritems %}{% endblock %}
+                <li class="nav-item active">
+                  <a class="nav-link" href="{{ url_for('index') }}">Home<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('search') }}">Search</span></a>
+                </li>
+                <li class="nav-item">       
+                  {% if session["loggedin"] %}
+                      <a class="nav-link" href="{{ url_for('user') }}"> {{ session["user"] }}</a>
+                  {% else %}
+                      <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                  {% endif %}
+                </li>
               </ul>
             </div>
         </nav>

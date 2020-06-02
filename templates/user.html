@@ -1,20 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Home{% endblock %}
-{% block navbaritems %}
-    <li class="nav-item active">
-        <a class="nav-link" href="{{ url_for('index') }}">Home<span class="sr-only">(current)</span></a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ url_for('index') }}">Search</span></a>
-    </li>
-    <li class="nav-item">       
-        {% if session["loggedin"]%}
-            <a class="nav-link" href="{{ url_for('login') }}"> {{ session["user"] }}</a>
-        {% else %}
-            <a class="nav-link" href="{{ url_for('login') }}">Login</a>
-        {% endif %}
-    </li>
-{% endblock %}x
+{% block title %}session["user"]{% endblock %}
 {% block content %}
 
 <h1>{{session["user"]}}</h1>
