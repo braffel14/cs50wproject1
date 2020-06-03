@@ -104,7 +104,27 @@ def register():
 
     return render_template("register.html", unfilled=request.args.get("unfilled"))
 
-@app.route("/search")
+@app.route("/search", methods=["GET", "POST"])
 def search():
+
+    if session["loggedin"] is False:
+       return redirect(url_for("login"))
+
+    isbn=request.args.get("isbn")
+    title=request.args.get("title")
+    author=request.args.get("author")
+
+    if isbn is not None:
+        books = db.execute("SELECT * FROM books WHERE isbn LIKE :isbn", {"isbn":f"%{isbn}%"}).fetchall()
+        return render_template("search.html", books=books, results=True)
+
+    if author is not None:
+        books = db.execute("SELECT * FROM books WHERE author LIKE :author", {"author":f"%{author}%"}).fetchall()
+        return render_template("search.html", books=books, results=True)
+
+    if title is not None:
+        books = db.execute("SELECT * FROM books WHERE title LIKE :title", {"title":f"%{title}%"}).fetchall()
+        return render_template("search.html", books=books, results=True)
+
 
     return render_template("search.html")

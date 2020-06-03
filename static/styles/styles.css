@@ -55,4 +55,24 @@ body {
   padding-top: 30px;
 }
 
+.searchbox {
+  padding-top: 40px;
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-bottom: 10px;
+}
+
+.categoryrow {
+  background-color: #3d5af1;
+  color: white;
+  padding: 10px;
+  border-bottom: 2px solid black;
+}
+
+.resultrow {
+  background-color: #209cb3;
+  padding: 10px;
+  border-bottom: 1px solid #e2f3f5;
+}
+
 /*# sourceMappingURL=styles.css.map */

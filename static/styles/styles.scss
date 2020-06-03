@@ -6,7 +6,7 @@
 
 $color5: #db7917;
 $color4: #e2f3f5;
-$color3: #15b2ce;
+$color3: #209cb3;
 $color2: #3d5af1;
 $color6: #40514e;
 $color1: #0e153a;
@@ -69,4 +69,24 @@ body{
 
 #logincontainer{
     padding-top: 30px;
+}
+
+.searchbox{
+    padding-top: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 10px;;
+}
+
+.categoryrow{
+    background-color: $color2;
+    color: white;
+    padding: 10px;
+    border-bottom: 2px solid black;
+}
+
+.resultrow{
+    background-color: $color3;
+    padding: 10px;
+    border-bottom: 1px solid $color4;
 }
