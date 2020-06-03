@@ -4,6 +4,7 @@ from flask import Flask, session, render_template, redirect, url_for, request
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
+from passlib.hash import sha256_crypt
 
 import requests
 
@@ -49,8 +50,8 @@ def login():
         # query database for username
         user = db.execute("SELECT * FROM users WHERE username = :username", {"username": username}).first()
         try:
-            #if password is incorrect
-            if(user.password == password):
+            # if password is incorrect
+            if sha256_crypt.verify(password, user.password) is True:
                 session["loggedin"] = True
                 session["user"] = username
                 return redirect(url_for('index'))
@@ -79,7 +80,8 @@ def register():
         firstname = request.form.get("firstname")
         lastname = request.form.get("lastname")
         username = request.form.get("username")
-        password = request.form.get("password")
+        #encrypts entered password using sha256 encryption
+        password = sha256_crypt.encrypt(request.form.get("password"))
 
         if(firstname == None or firstname == "" or lastname == None or lastname == "" or username == None or  username == ""):
             return redirect(url_for('register', unfilled=True))
@@ -101,19 +103,21 @@ def register():
         #goes home
         return redirect(url_for('index'))
 
-
     return render_template("register.html", unfilled=request.args.get("unfilled"))
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
 
+    #redirects to login page if user is not logged in 
     if session["loggedin"] is False:
        return redirect(url_for("login"))
 
+    #gets GET request arguments for search query
     isbn=request.args.get("isbn")
     title=request.args.get("title")
     author=request.args.get("author")
 
+    #queries databse depending on search tpe and renders page with results
     if isbn is not None:
         books = db.execute("SELECT * FROM books WHERE isbn LIKE :isbn", {"isbn":f"%{isbn}%"}).fetchall()
         return render_template("search.html", books=books, results=True)

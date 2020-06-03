@@ -34,15 +34,18 @@
   <div class="container">
         {% if results %}
             <div class="row categoryrow">
-            <div class="col categorycol">
-                Title
-            </div>
-            <div class="col categorycol">
-                Author 
-            </div>
-            <div class="col categorycol">
-                ISBN
-            </div>
+                <div class="col categorycol">
+                    Title
+                </div>
+                <div class="col categorycol">
+                    Author 
+                </div>
+                <div class="col categorycol">
+                    Year
+                </div>
+                <div class="col categorycol">
+                    ISBN
+                </div>
             </div>
         {% endif %}
 
@@ -53,6 +56,9 @@
             </div>
             <div class="col resultcol">
                 {{ book.author }}
+            </div>
+            <div class="col resultcol">
+                {{ book.year }}
             </div>
             <div class="col resultcol">
                 {{ book.isbn }}
