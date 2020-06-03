@@ -29,6 +29,7 @@ def index():
             session["failedlogin"] = False
             session["loggedin"] = False
             session["user"] = None
+            return redirect(url_for('index'))
     
     return render_template("index.html")
 
@@ -65,10 +66,8 @@ def login():
             session["user"] = None
             return render_template("login.html", failedlogin=True)
 
-    #hadnles redirect from register page if user registering already exists
-    userexists=request.args.get("userexists")
 
-    return render_template("login.html", userexists=userexists)
+    return render_template("login.html", userexists=request.args.get("userexists"))
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -81,6 +80,10 @@ def register():
         lastname = request.form.get("lastname")
         username = request.form.get("username")
         password = request.form.get("password")
+
+        if(firstname == None or firstname == "" or lastname == None or lastname == "" or username == None or  username == ""):
+            return redirect(url_for('register', unfilled=True))
+
 
         #checks for already existing user and redirects if needed
         if(db.execute("SELECT * FROM users WHERE username = :username", {"username": username}).rowcount > 0):
@@ -99,7 +102,7 @@ def register():
         return redirect(url_for('index'))
 
 
-    return render_template("register.html")
+    return render_template("register.html", unfilled=request.args.get("unfilled"))
 
 @app.route("/search")
 def search():
