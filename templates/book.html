@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Book{% endblock %}
+{% block content %}
+
+    <div class="container">
+        <div class = "row justify-content-between align-items-center" id ="bookheader">
+            <div class="col col-md-auto">
+                <span class="title">{{ info.title }}</span> <span class="year">({{info.year}})</span><br>
+                <span class="author">{{ info.author }}</span><br>
+                <span class=bookisbn>ISBN:{{ info.isbn }}</span>
+            </div>
+            <div clas="col-md" id="goodreadsrate">
+                <div clas="rating">good<span style="font-weight:bolder">reads</span> Rating: {{ info.grrate }}/5.00 <span style="font-size: small;">in {{info.grnumbers}} ratings</span></div>
+            </div>
+        </div>
+        <div class="row justify-content-between align-items-center">
+            <div class="col">
+                <br><br>
+                <span class="reviewstitle">Reviews</span>
+                <hr class="reviewshr">
+            </div>
+        </div>
+        <div class="row align-items-center">
+            {% for review in reviews %}
+
+                <div clas="col-auto">
+                    <div class="card reviewcard">
+                        <div class="card-header"><span style="font-size: 17px">Review for {{ info.title }} by user {{ reviews[review]['username'] }}</span></div>                     
+                        <div class="card-body">
+                            Rating: 
+                            {% for x in range(0, reviews[review]['rating']) %}
+                                &#9733; 
+                            {% endfor %}
+                            <p class="reviewcardtext">{{ reviews[review]['review'] }}</p>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %} 

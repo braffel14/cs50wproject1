@@ -34,11 +34,11 @@ def index():
     
     return render_template("index.html")
 
-@app.route("/user")
+@app.route("/user/")
 def user():
     return render_template("user.html")
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route("/login/", methods=["GET", "POST"])
 def login():
 
     #login mechanics triggered when form login button pushed
@@ -70,7 +70,7 @@ def login():
 
     return render_template("login.html", userexists=request.args.get("userexists"))
 
-@app.route("/register", methods=["GET", "POST"])
+@app.route("/register/", methods=["GET", "POST"])
 def register():
     
     #register mechanids triggered on form register button
@@ -105,7 +105,7 @@ def register():
 
     return render_template("register.html", unfilled=request.args.get("unfilled"))
 
-@app.route("/search", methods=["GET", "POST"])
+@app.route("/search/", methods=["GET", "POST"])
 def search():
 
     #redirects to login page if user is not logged in 
@@ -129,6 +129,60 @@ def search():
     if title is not None:
         books = db.execute("SELECT * FROM books WHERE title LIKE :title", {"title":f"%{title}%"}).fetchall()
         return render_template("search.html", books=books, results=True)
-
+    
 
     return render_template("search.html")
+
+
+#redirects to search if book path is entered without an isbn
+@app.route("/book/")
+def bookredir():
+
+    #redirects to login page if user is not logged in 
+    if session["loggedin"] is False:
+       return redirect(url_for("login"))
+
+    return redirect(url_for("search"))
+
+
+@app.route("/book/<string:isbn>", methods=["GET"])
+def book(isbn):
+
+    #redirects to login page if user is not logged in 
+    if session["loggedin"] is False:
+       return redirect(url_for("login"))
+
+    #get book info from db
+    book = db.execute("SELECT * FROM books WHERE isbn = :isbn", {"isbn": isbn}).first()
+
+    #get rating info from goodreads
+    grjson = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": 'gbjpeSJgvTVrtvncXhNzdg', 'isbns':[isbn]})
+    grdata = grjson.json()
+
+    #organize info into dictionary
+    info = {
+    'isbn':isbn,
+    'title': book['title'],
+    'author': book['author'],
+    'year': book['year'],
+    'grrate': grdata['books'][0]['average_rating'],
+    'grnumbers': grdata['books'][0]['ratings_count']
+    }
+
+    #get reviews from database and build dict of reviews
+    dbreviews = db.execute("SELECT * FROM reviews WHERE isbn = :isbn", {"isbn": isbn}).fetchall()
+    reviews = {}
+    for review in dbreviews:
+        #pull user who published review to get their username
+        user = db.execute("SELECT * FROM users WHERE user_id = :user_id", {"user_id": review['user_id']}).first()
+        reviews[f"{review['user_id']}"] = {
+            'isbn': review['isbn'],
+            'username': user['username'],
+            'rating': review['rating'],
+            'review': review['review'],
+        }
+
+    return render_template("book.html", info=info, reviews=reviews)
+
+
+    

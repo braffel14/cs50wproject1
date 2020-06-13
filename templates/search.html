@@ -9,7 +9,7 @@
                 <div class="form-group">
                     <input type="text" class="form-control" id="isbnfield" name="isbn" placeholder="ISBN">
                 </div>
-                <button type="submit" class="button loginbutton">Search By ISBN</button>
+                <button type="submit" class="button tologinbutton">Search By ISBN</button>
             </form>
         </div>
         <div class="col-sm searchbox">
@@ -17,7 +17,7 @@
                 <div class="form-group">
                     <input type="text" class="form-control" id="titlefield" name="title" placeholder="Title">
                 </div>
-                <button type="submit" class="button loginbutton">Search By Title</button>
+                <button type="submit" class="button tologinbutton">Search By Title</button>
             </form>
         </div>
         <div class="col-sm searchbox">
@@ -25,7 +25,7 @@
                 <div class="form-group">
                     <input type="text" class="form-control" id="authorfield" name="author" placeholder="Author">
                 </div>
-                <button type="submit" class="button loginbutton">Search By Author</button>
+                <button type="submit" class="button tologinbutton">Search By Author</button>
             </form>
         </div>
     </div>
@@ -46,6 +46,8 @@
                 <div class="col categorycol">
                     ISBN
                 </div>
+                <div class="col categorycol">
+                </div>
             </div>
         {% endif %}
 
@@ -62,6 +64,9 @@
             </div>
             <div class="col resultcol">
                 {{ book.isbn }}
+            </div>
+            <div class="col resultcol">
+                <a class="button gotobookbutton" href="{{ url_for('book', isbn = book.isbn) }}" role="button">View</a>
             </div>
         </div>
     {% endfor %}

@@ -10,6 +10,7 @@ $color3: #209cb3;
 $color2: #3d5af1;
 $color6: #40514e;
 $color1: #0e153a;
+$grcolor: #e8efe7;
 
 
 
@@ -31,13 +32,14 @@ body{
     padding: 10px 15px;
     text-align: center;
     text-decoration: none;
+    color: black;
 }
 
 .toregisterbutton, .tologinbutton, .jumbotronbutton{
     color: black;
 }
 
-.toregisterbutton:hover, .tologinbutton:hover, .jumbotronbutton:hover{
+.toregisterbutton:hover, .tologinbutton:hover, .jumbotronbutton:hover, .gotobookbutton:hover{
     border: 2px solid $color6 !important;
     color: black;
     text-underline-position: none;
@@ -89,4 +91,38 @@ body{
     background-color: $color3;
     padding: 10px;
     border-bottom: 1px solid $color4;
+}
+
+.title{
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.bookisbn{
+    font-size: 10px;
+    font-weight: lighter;
+}
+
+#bookheader{
+    padding-top: 20px;
+}
+
+#goodreadsrate{
+    background-color: $grcolor;
+    padding: 25px;
+    border: 2px solid $color6;
+    border-radius: 10px;
+}
+
+.reviewstitle{
+    font-size: 30px ;
+    color: $color1;
+}
+
+.reviewshr{
+    border: 1px solid $color5;
+}
+
+.reviewcard{
+    margin: 20px;
 }
