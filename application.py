@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, session, render_template, redirect, url_for, request
+from flask import Flask, session, render_template, redirect, url_for, request, abort
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -155,6 +155,10 @@ def book(isbn):
     #get book info from db
     book = db.execute("SELECT * FROM books WHERE isbn = :isbn", {"isbn": isbn}).first()
 
+    #throw 404 error if isbn does not exist in the database
+    if book is None:
+       abort(404)
+
     #get rating info from goodreads
     grjson = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": 'gbjpeSJgvTVrtvncXhNzdg', 'isbns':[isbn]})
     grdata = grjson.json()
@@ -183,6 +187,10 @@ def book(isbn):
         }
 
     return render_template("book.html", info=info, reviews=reviews)
+
+@app.errorhandler(404)
+def page_not_found(error):
+   return render_template('404.html', title = '404'), 404
 
 
     
