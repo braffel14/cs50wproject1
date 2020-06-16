@@ -46,6 +46,7 @@ body{
     text-decoration: none;
 }
 
+
 .newtosite{
     .my-4{
         background-color: $color5;
@@ -125,4 +126,12 @@ body{
 
 .reviewcard{
     margin: 20px;
+}
+
+.reviewrow{
+    margin: 15px;
+}
+
+.newreviewrow{
+    padding-top: 20px;
 }

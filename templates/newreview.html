@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}New review for {{ booktitle }}{% endblock %}
+{% block content %}
+
+    <div class="container" id="newreviewcontainer">
+        <div class="row justify-content-start reviewrow">
+            <h1>New Review for {{ booktitle }}</h1>
+        </div>
+        <form action="" method="POST">
+            <div class="row justify-content-start reviewrow">
+                Rating: 
+                <select id="rating" name="rating" size="1">
+                    <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+                    <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
+                    <option value="3">&#9733;&#9733;&#9733;</option>
+                    <option value="2">&#9733;&#9733;</option>
+                    <option value="1">&#9733;</option>
+                </select>
+            </div>
+            <div class="row justify-content-start reviewrow">
+                <textarea id="reviewtext" name="reviewtext" rows="10" cols="50" placeholder="Write your review here"></textarea>
+            </div>
+            <div class="row justify-content-start reviewrow">
+                <button type="submit" class="button submitreviewbutton">Submit Review</button>  
+            </div>
+        </form>
+    </div>  
+
+{% endblock %} 

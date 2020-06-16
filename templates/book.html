@@ -1,7 +1,16 @@
 {% extends "base.html" %}
-{% block title %}Book{% endblock %}
+{% block title %}{{ info.title }}{% endblock %}
 {% block content %}
-
+    {% if cantreview %}
+        <div class="alert alert-warning" id="incorrectlogin" role="alert">
+            You have already published a review for this book
+        </div>
+    {% endif %}
+    {% if reviewsuccess %}
+        <div class="alert alert-warning" id="userexistsalert" role="alert">
+            Review successfully published for {{ info.title }}
+        </div>
+    {% endif %}
     <div class="container">
         <div class = "row justify-content-between align-items-center" id ="bookheader">
             <div class="col col-md-auto">
@@ -11,6 +20,11 @@
             </div>
             <div clas="col-md" id="goodreadsrate">
                 <div clas="rating">good<span style="font-weight:bolder">reads</span> Rating: {{ info.grrate }}/5.00 <span style="font-size: small;">in {{info.grnumbers}} ratings</span></div>
+            </div>
+        </div>
+        <div class="row justify-content-between align-items-center newreviewrow">
+            <div class="col">
+                <a class="button gotobookbutton" href="{{ url_for('newreview', isbn = info.isbn) }}" role="button">New Review</a>
             </div>
         </div>
         <div class="row justify-content-between align-items-center">
